@@ -6,7 +6,15 @@ function Header(props) {
   return (
     <header>
       <h1>
-        <a href="/">{props.title}</a>
+        <a
+          href="/"
+          onClick={function (event) {
+            event.preventDefault();
+            props.onChangeMode();
+          }}
+        >
+          {props.title}
+        </a>
       </h1>
     </header>
   );
@@ -47,11 +55,13 @@ function App() {
   ];
   return (
     <div>
-      {/* 간단한 prop 전달 */}
-      <Header title="WEB" />
-      {/* 복잡한 prop 전달 */}
+      <Header
+        title="WEB"
+        onChangeMode={function () {
+          alert("Header");
+        }}
+      />
       <Nav topics={topics} />
-      {/* 간단한 prop 전달 */}
       <Article title="Welcome" body="Hello, WEB" />
     </div>
   );

@@ -46,7 +46,7 @@ function Capital () {
 
 <img src="img.jpg" width="100" height="100">
 ```
-React에서 속성을 PROP이라고 부른다.
+React에서 속성을 PROP이라고 부른다. ex) 여기선 title, id, body 이런 것들
 
 ## props 전달
 
@@ -105,3 +105,48 @@ function Nav(props) {
 
 ### 참고: key
 react는 자동으로 생성한 태그의 경우 이들을 추적할 근거로 key라는 prop을 부여하여 리액트가 성능을 높이고 정확한 동작을 하는데 도움을 준다.
+
+# 6. 이벤트
+- 컴포넌트에 이벤트를 넣고 싶다면?
+```js
+<input type="button" onclick="alert('hi')">
+```
+## 사용자의 경우
+### prop(onChangeMode)을 전달한다.
+- #### value가 function인 prop
+- prop을 생성하는데 value로 function을 준다.
+```js
+<Header
+    title="WEB"
+    onChangeMode={function () {
+        alert("Header");
+        }
+    }
+/>
+```
+## 컴포넌트의 경우
+### onClick 이벤트
+- 컴포넌트에 이벤트(onClick) 기능을 적어준다.
+```js
+function Header(props) {
+  return (
+    <header>
+      <h1>
+        <a
+          href="/"
+          onClick={function (event) {
+            event.preventDefault();
+            props.onChangeMode();
+          }}
+        >
+          {props.title}
+        </a>
+      </h1>
+    </header>
+  );
+}
+```
+- a 태그는 유사 html은 아니고 리액트가 브라우저에 컨버팅할 때 html로 바꿔준다.
+- 이벤트(onClick) 값에는 함수를 적어준다.
+- function의 첫번째 argument인 event 객체는 적어주지 않아도 되는데, 이벤트 상황을 제어할 수 있는 여러 기능을 사용할 때는 적어준다.
+- 함수를 호출할 때는 괄호를 적어준다.
