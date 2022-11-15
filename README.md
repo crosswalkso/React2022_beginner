@@ -115,6 +115,7 @@ react는 자동으로 생성한 태그의 경우 이들을 추적할 근거로 k
 ### prop(onChangeMode)을 전달한다.
 - #### value가 function인 prop
 - prop을 생성하는데 value로 function을 준다.
+- prop 이름은 onChangeMode가 아닌 ff로 하든 뭘 하든 작동함.
 ```js
 <Header
     title="WEB"
@@ -150,3 +151,37 @@ function Header(props) {
 - 이벤트(onClick) 값에는 함수를 적어준다.
 - function의 첫번째 argument인 event 객체는 적어주지 않아도 되는데, 이벤트 상황을 제어할 수 있는 여러 기능을 사용할 때는 적어준다.
 - 함수를 호출할 때는 괄호를 적어준다.
+
+## 사용자가 prop function에 argument를 전달할 경우
+### 입력값 전달
+```js
+<Nav topics={topics} 
+     onChangeMode={(id) => {
+          alert(id);
+}}
+/>
+```
+- Nav 컴포넌트에 id라는 인자를 주고 있다.
+### 컴포넌트의 경우
+```js
+function Nav(props) {
+    ...
+    lis.push(
+      ...
+        <a
+          id={t.id}
+          ...
+          onClick={(event) => {
+            event.preventDefault();
+            props.onChangeMode(event.target.id);
+          }}
+        >
+        ...
+}
+```
+- a태그에 id (arg이름 그대로!)를 부여해준다.  
+방법 중 하나일 뿐 다른 방법도 있다.
+#### target
+- event 객체가 갖고 있는 속성?
+- 이벤트를 유발시킨 태그(a tag)를 가리킨다.
+- a 태그가 가지고 있는 id 값을 가져오면 된다.
