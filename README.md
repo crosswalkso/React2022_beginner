@@ -161,7 +161,8 @@ function Header(props) {
 }}
 />
 ```
-- Nav 컴포넌트에 id라는 인자를 주고 있다.
+- Nav 컴포넌트에 id라는 인자를 주고 있다.  
+인자로 전달할 때는 id가 아니라 _id여도 되는데...
 ### 컴포넌트의 경우
 ```js
 function Nav(props) {
@@ -179,9 +180,11 @@ function Nav(props) {
         ...
 }
 ```
-- a태그에 id (arg이름 그대로!)를 부여해준다.  
+- 여기서는 a태그에 id를 부여해준다.  
+다른 이름을 부여하면 undefined가 뜬다.  
 방법 중 하나일 뿐 다른 방법도 있다.
-#### target
+#### target, id
 - event 객체가 갖고 있는 속성?
 - 이벤트를 유발시킨 태그(a tag)를 가리킨다.
 - a 태그가 가지고 있는 id 값을 가져오면 된다.
+- id는 target이 가지고 있는 속성으로, idx 이런걸 적게 되면 prop attribute 등 이상한 경로로 들어가서 특별한 속성이라 보면 될 듯 싶다.
