@@ -1,0 +1,9 @@
+*.json
+*.txt
+*.svg
+reportWebVitals.js
+setupTests.js
+App.test.js
+public/
+build/
+.DS_Store
