@@ -47,3 +47,61 @@ function Capital () {
 <img src="img.jpg" width="100" height="100">
 ```
 React에서 속성을 PROP이라고 부른다.
+
+## props 전달
+
+### 1. 중괄호 출력
+```js
+<Header title="WEB" />
+```
+```js
+function Header(props) {
+  return (
+    <header>
+      <h1>
+        <a href="/">{props.title}</a>
+      </h1>
+    </header>
+  );
+}
+```
+- 중괄호가 없으면 텍스트만 나온다.
+- **중괄호**를 치면 표현식으로 취급돼서 그것이 출력되며, 전달할 때도 사용한다.
+### 2. 중괄호 전달
+```js
+function App() {
+  const topics = [
+    { id: 1, title: "html", body: "html is ..." },
+    { id: 2, title: "css", body: "css is ..." },
+    { id: 3, title: "javascript", body: "javascript is ..." },
+  ];
+  return (
+    <div>
+      <Nav topics={topics} />
+    </div>
+  );
+}
+```
+- topics를 전달한다.
+```js
+function Nav(props) {
+    const lis = [];
+    for (let i = 0; i < props.topics.length; i++) {
+        let t = props.topics[i];
+    lis.push(
+        <li key={t.id}>
+        <a href="{'/read/'+t.id}">{t.title}</a>
+        </li>
+    );
+    }
+    return (
+        <nav>
+        <ol>{lis}</ol>
+    </nav>
+    );
+}
+```
+전달받은 topics prop을 처리한 후 lis를 출력한다.
+
+### 참고: key
+react는 자동으로 생성한 태그의 경우 이들을 추적할 근거로 key라는 prop을 부여하여 리액트가 성능을 높이고 정확한 동작을 하는데 도움을 준다.
