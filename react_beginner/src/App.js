@@ -69,13 +69,13 @@ function Create(props) {
         }}
       >
         <p>
-          <input type="text" name="title" placeholder="title"></input>
+          <input type="text" name="title" placeholder="title" />
         </p>
         <p>
           <textarea name="body" placeholder="body"></textarea>
         </p>
         <p>
-          <input type="submit" value="Create"></input>
+          <input type="submit" value="Create" />
         </p>
       </form>
     </article>
@@ -104,7 +104,7 @@ function Update(props) {
             onChange={(event) => {
               setTitle(event.target.value);
             }}
-          ></input>
+          />
         </p>
         <p>
           <textarea
@@ -117,7 +117,7 @@ function Update(props) {
           ></textarea>
         </p>
         <p>
-          <input type="submit" value="Update"></input>
+          <input type="submit" value="Update" />
         </p>
       </form>
     </article>
@@ -148,17 +148,35 @@ function App() {
     }
     content = <Article title={title} body={body} />;
     contextControl = (
-      <li>
-        <a
-          href={"/update/" + id}
-          onClick={(event) => {
-            event.preventDefault();
-            setMode("UPDATE");
-          }}
-        >
-          Update
-        </a>
-      </li>
+      <>
+        <li>
+          <a
+            href={"/update/" + id}
+            onClick={(event) => {
+              event.preventDefault();
+              setMode("UPDATE");
+            }}
+          >
+            Update
+          </a>
+        </li>
+        <li>
+          <input
+            type="button"
+            value="Delete"
+            onClick={() => {
+              const newTopics = [];
+              for (let i = 0; i < topics.length; i++) {
+                if (topics[i].id !== id) {
+                  newTopics.push(topics[i]);
+                }
+              }
+              setTopics(newTopics);
+              setMode("WELCOME");
+            }}
+          />
+        </li>
+      </>
     );
   } else if (mode === "CREATE") {
     content = (

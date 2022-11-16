@@ -342,7 +342,7 @@ newValue.push(2); // [1,2]
 setValue(newValue); // [1] vs [1,2] -> different, 작동
 ```
 
-### 9. Update
+# 9. Update
 - 기존의 내용(title, body)을 가지고 있어야 한다.
 ```js
 else if (mode === "UPDATE") {
@@ -375,3 +375,7 @@ const [body, setBody] = useState(props.body);
 - ### onChange event
 - state를 바꾸기 위해 onChange를 사용한다.
 - html과 다르게 값을 바꿀때마다 달라진다.
+
+# 10. Delete
+### Fragments
+복수의 태그를 그룹핑할 때 사용
