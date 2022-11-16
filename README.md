@@ -184,6 +184,9 @@ function Nav(props) {
 다른 이름을 부여하면 undefined가 뜬다.  
 방법 중 하나일 뿐 다른 방법도 있다.
 #### target
+```js
+<a id="3" href="{'/read/'+t.id}">javascript</a>
+```
 - event 객체가 갖고 있는 속성?
 - 이벤트를 유발시킨 태그(a tag)를 가리킨다.
 - a 태그가 가지고 있는 id 값을 가져오면 된다.
@@ -212,6 +215,7 @@ setMode: function, 변화시키는 함수
 - #### setMode로 인해 값이 바뀌면 App Component가 다시 실행되어 새로운 값을 화면에 렌더링 해준다.
 
 - 입력한 값은 숫자였어도 태그의 속성으로 넘기면 문자가 된다.
+- Number로 타입변환을 해준다.
 ### Nav
 ```js
 <a
@@ -248,3 +252,94 @@ function Header(props) {
 ```js
 const [mode, setMode] = useState("default");
 ```
+
+# 8. Create
+## mode의 값을 바꿔 새로운 UI가 나타나도록
+#### 1. onClick -> mode=CREATE로 변경, Create content가 나타남.
+#### 2. onSubmit -> onCreate 실행, newTopic 추가됨
+
+## Create Component 분석
+```js
+function Create(props) {
+  return (
+    <article>
+      <h2>Create</h2>
+      // form
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          // target
+          const title = event.target.title.value;
+          const body = event.target.body.value;
+          props.onCreate(title, body);
+        }}
+      >
+        <p>
+          <input type="text" name="title" placeholder="title"></input>
+        </p>
+        <p>
+          <textarea name="body" placeholder="body"></textarea>
+        </p>
+        <p>
+          <input type="submit" value="Create"></input>
+        </p>
+      </form>
+    </article>
+  );
+}
+```
+### form
+어떤 정보를 서버로 전송할 때 쓰는 태그
+### textarea
+여러 줄 표시
+
+### [callback 함수](https://velog.io/@ko1586/Callback%ED%95%A8%EC%88%98%EB%9E%80-%EB%AD%94%EB%8D%B0)
+- 1. 다른 코드의 인수로서 넘겨주는 실행 가능한 코드 -> 다른 함수가 실행을 끝낸 뒤 실행됨
+- 2. 어떤 이벤트가 발생했거나 특정 시점에 도달했을 때 시스템에서 호출하는 함수
+- ex) onCreate, 버튼을 클릭했을 때 발생할 것이다.
+### onSubmit prop
+- submit 클릭시 form에서 발생하는 이벤트
+
+렌더링 문제
+다른 데이터만 렌더링 해 줌
+...로 복제 (object, array)
+
+### target
+onSubmit 이벤트가 발생한 태그를 가져옴
+```js
+<form>
+    <p>...</p>
+    <p>...</p>
+    <p>...</p>
+</form>
+```
+event.target.name / name을 가진 태그
+```js
+<input type="text" name="title" placeholder="title">
+```
+event.target.name.value / 태그의 밸류값
+
+## STATE primitive vs object
+- #### 같은 데이터는 렌더링 되지 않는다.
+### primitive
+- string, number, boolean ...
+```js
+const[value, setValue] = useState(1); // 1
+setValue(2); // 1 vs 2 -> different, 작동
+```
+
+### object(범객체)
+- object, array ...
+- #### 복제본을 수정해서 원본과 비교해야 한다.
+- object: {...value}, array: [...value]
+```js
+const [value, setValue] = useState([1]); // [1]
+value.push(2); // [1,2]
+setValue(value); // [1,2] vs [1,2] -> same, 작동 X
+
+newValue=[...value]; // 복제 [1]
+newValue.push(2); // [1,2]
+setValue(newValue); // [1] vs [1,2] -> different, 작동
+```
+
+
