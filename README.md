@@ -342,4 +342,36 @@ newValue.push(2); // [1,2]
 setValue(newValue); // [1] vs [1,2] -> different, 작동
 ```
 
-
+### 9. Update
+- 기존의 내용(title, body)을 가지고 있어야 한다.
+```js
+else if (mode === "UPDATE") {
+    let title,
+      body = null;
+    for (let i = 0; i < topics.length; i++) {
+      if (topics[i].id === id) {
+        title = topics[i].title;
+        body = topics[i].body;
+      }
+    }
+    content = <Update title={title} body={body} onUpdate={(title, body) => {}} />;
+  }
+```
+### {props.name} 사용자가 전달한 값으로, 홈페이지에서 바꾸기 위해선 state가 필요하다.
+- ## 오답
+```js
+<input type="text" name="title" placeholder="title" value={props.title}></input>
+```
+prop: 외부자가 내부로 전달  
+state: 내부자가 사용하는 데이터
+- props.name을 태그에 주지 말고 useState의 초기값으로 준다.
+- ### state
+```js
+const [title, setTitle] = useState(props.title);
+const [body, setBody] = useState(props.body);
+<input type="text" name="title" placeholder="title" value={title}></input>
+<textarea name="body" placeholder="body" value={body}></textarea>
+```
+- ### onChange event
+- state를 바꾸기 위해 onChange를 사용한다.
+- html과 다르게 값을 바꿀때마다 달라진다.
