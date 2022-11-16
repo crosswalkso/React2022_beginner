@@ -365,7 +365,7 @@ else if (mode === "UPDATE") {
 prop: 외부자가 내부로 전달  
 state: 내부자가 사용하는 데이터
 - props.name을 태그에 주지 말고 useState의 초기값으로 준다.
-- ### state
+- ## state
 ```js
 const [title, setTitle] = useState(props.title);
 const [body, setBody] = useState(props.body);
