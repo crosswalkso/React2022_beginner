@@ -183,8 +183,68 @@ function Nav(props) {
 - 여기서는 a태그에 id를 부여해준다.  
 다른 이름을 부여하면 undefined가 뜬다.  
 방법 중 하나일 뿐 다른 방법도 있다.
-#### target, id
+#### target
 - event 객체가 갖고 있는 속성?
 - 이벤트를 유발시킨 태그(a tag)를 가리킨다.
 - a 태그가 가지고 있는 id 값을 가져오면 된다.
 - id는 target이 가지고 있는 속성으로, idx 이런걸 적게 되면 prop attribute 등 이상한 경로로 들어가서 특별한 속성이라 보면 될 듯 싶다.
+
+# 7. state
+### prop and state
+- prop: component 사용자(외부)를 위함
+- state: component 만드는 내부자를 위함
+
+## state
+
+### useStete hook
+- hook: react에서 제공하는 기본적인 함수
+- 일반 지역변수였던 mode를 state 상태로 바꿔서 값이 변할 수 있음
+- #### 배열 return  
+```js
+const [mode, setMode] = useState(arg);
+```
+```
+mode: state value, 변화하는 값
+setMode: function, 변화시키는 함수
+인자: state value 초기값
+```
+- 기본적으로 App 함수는 한 번만 실행되기 때문에 Header, Nav를 클릭해줘도 값의 변화가 없다.
+- #### setMode로 인해 값이 바뀌면 App Component가 다시 실행되어 새로운 값을 화면에 렌더링 해준다.
+
+- 입력한 값은 숫자였어도 태그의 속성으로 넘기면 문자가 된다.
+### Nav
+```js
+<a
+    id={t.id}
+    href="{'/read/'+t.id}"
+    onClick={(event) => {
+    event.preventDefault();
+    props.onChangeMode(Number(event.target.id));
+    }}
+>
+```
+### Header Component - event, state
+#### 1. Header를 클릭하면 onClick -> onChangeMode() 함수 실행
+```js
+function Header(props) {
+  return (
+    <header>
+      <h1>
+        <a href="/"
+          onClick={(event) => {
+            event.preventDefault();
+            props.onChangeMode();
+          }}>{props.title}</a>
+      </h1>
+    </header>
+  );
+}
+```
+#### 2. onChangeMode(), setMode가 설치되어 있다.
+```js
+<Header title="WEB" onChangeMode={() => setMode("WELCOME")} />
+```
+#### 3. state value 변경, mode 값이 WELCOME으로 바뀐다.
+```js
+const [mode, setMode] = useState("default");
+```
