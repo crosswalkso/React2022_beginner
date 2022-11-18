@@ -379,3 +379,47 @@ const [body, setBody] = useState(props.body);
 # 10. Delete
 ### Fragments
 복수의 태그를 그룹핑할 때 사용
+
+
+# Reviews
+## Component
+- 어디가 먼저인지 헷갈리긴 함.
+- 근데 function은 이미 만들어져 있다고 생각하면 편함.
+### 1. 사용할 때
+- 함수를 미리 정의해두고 Component 사용시 props 형태로 넘겨준다.
+```js
+function App(){
+const [mode, setMode] = useState("WELCOME"); // useState function
+
+...
+
+    return(
+    // Component 사용, const 정의해 준 함수를 전달한다. 
+    <Header title="WEB" onChangeMode={() => setMode("WELCOME")} />
+    )
+}
+```
+
+### 2. 함수 작성할 때
+- 사용자가 요청하면 props에서 꺼내서 사용 후 return -> 렌더링
+``` js
+function Header(props) {
+  return (
+    <header>
+      <h1>
+        <a
+          href="/"
+          onClick={(event) => {
+            event.preventDefault();
+            // props을 불러와서 사용한다.
+            props.onChangeMode();
+          }}
+        >
+          {props.title}
+        </a>
+      </h1>
+    </header>
+  );
+}
+```
+
